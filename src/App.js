@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom';
-import MainMain from './MainMain';
-import MainSide from './MainSide';
-import NotesMain from './NotesMain';
-import NotesSide from './NotesSide';
+import MainMain from './MainMain/MainMain';
+import MainSide from './MainSide/MainSide';
+import NotesMain from './NotesMain/NotesMain';
+import NotesSide from './NotesSide/NotesSide';
 import dummyStore from './dummy-store';
+import displayContext from './displayContext';
 import {getNotesForFolder, findNote, findFolder} from './NotesFunctions';
 import './App.css';
 

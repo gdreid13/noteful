@@ -1,6 +1,6 @@
 import React from 'react'
 import { NavLink, Link } from 'react-router-dom'
-import { countNotesForFolder } from './NotesFunctions'
+import { countNotesForFolder } from '../NotesFunctions'
 import './MainSide.css'
 
 export default function MainSide(props) {

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import Note from './Note'
+import Note from '../Note'
 import './MainMain.css'
 
 export default function MainMain(props) {
