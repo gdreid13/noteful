@@ -1,37 +1,50 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import Note from '../Note'
+import Note from '../Note/Note'
+import DisplayContext from '../DisplayContext'
+import { getNotesForFolder } from '../NotesFunctions'
 import './MainMain.css'
 
-export default function MainMain(props) {
-  return (
-    <section className='MainMain'>
-      <ul>
-        {props.notes.map(note =>
-          <li key={note.id}>
-            <Note
-              id={note.id}
-              name={note.name}
-              modified={note.modified}
-            />
-          </li>
-        )}
-      </ul>
-      <div className='MainMain__button-container'>
-        <button
-          tag={Link}
-          to='/add-note'
-          type='button'
-          className='MainMain__add-note-button'
-        >
-          <br />
+export default class MainMain extends React.Component {
+  static defaultProps = {
+    match: {
+      params: {}
+    }
+  }
+  static contextType = DisplayContext
+  
+  render () {
+
+    const { folderId } = this.props.match.params
+    const { notes = [] } = this.context
+    const notesForFolder = getNotesForFolder(notes, folderId)
+
+    return (
+      <section className='MainMain'>
+        <ul>
+          {notesForFolder.map(note =>
+            <li key={note.id}>
+              <Note
+                id={note.id}
+                name={note.name}
+                modified={note.modified}
+              />
+            </li>
+          )}
+        </ul>
+        <div className='MainMain__button-container'>
+          <button
+            tag={Link}
+            to='/add-note'
+            type='button'
+            className='MainMain__add-note-button'
+          >
+            <br />
           Add note
         </button>
-      </div>
-    </section>
-  )
+        </div>
+      </section>
+    )
+  }
 }
 
-MainMain.defaultProps = {
-  notes: [],
-}
