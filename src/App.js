@@ -4,10 +4,8 @@ import MainMain from './MainMain/MainMain';
 import MainSide from './MainSide/MainSide';
 import NotesMain from './NotesMain/NotesMain';
 import NotesSide from './NotesSide/NotesSide';
-import dummyStore from './dummy-store';
 import DisplayContext from './DisplayContext';
-import AddFolder from './AddFolder/AddFolder';
-import AddNote from './AddNote/AddNote';
+import config from './config';
 import './App.css';
 
 export default class App extends Component {
@@ -21,8 +19,30 @@ export default class App extends Component {
   
 
   componentDidMount() {
-    this.setState(dummyStore);
+    Promise.all([
+      fetch(`${config.API_ENDPOINT}/notes`),
+      fetch(`${config.API_ENDPOINT}/folders`)
+    ]).then(([notesRes, foldersRes]) => {
+      if (!notesRes.ok)
+          return notesRes.json().then(e => Promise.reject(e));
+      if (!foldersRes.ok)
+          return foldersRes.json().then(e => 
+            Promise.reject(e));
+          return Promise.all([notesRes.json(), foldersRes.json()]);
+        })
+        .then(([notes, folders]) => {
+            this.setState({notes, folders});
+        })
+        .catch(error => {
+            console.error({error});
+        });
   }
+  
+  handleDeleteNote = noteId => {
+    this.setState({
+        notes: this.state.notes.filter(note => note.id !== noteId)
+    });
+  };
 
   renderNavRoutes() {
     return (
@@ -35,12 +55,9 @@ export default class App extends Component {
             component={MainSide}
           />
         ))}
-        <Route
-          path="/note/:noteId"
-          component={NotesSide}
-        />
-        <Route path="/add-folder" component={AddFolder} />
-        <Route path="/add-note" component={AddNote} />
+        <Route path="/note/:noteId" component={NotesSide}/>
+        <Route path="/add-folder" component={NotesSide} />
+        <Route path="/add-note" component={NotesSide} />
       </>
     )
   }
@@ -68,6 +85,7 @@ export default class App extends Component {
     const value = {
       notes: this.state.notes,
       folders: this.state.folders,
+      deleteNote: this.handleDeleteNote
     }
     return (
       <DisplayContext.Provider value={value}>
