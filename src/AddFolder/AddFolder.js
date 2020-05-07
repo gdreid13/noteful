@@ -1,4 +1,5 @@
 import React from 'react';
+import config from '../config'
 
 export default class AddFolder extends React.Component {
   constructor(props) {
@@ -9,13 +10,34 @@ export default class AddFolder extends React.Component {
       }
     }
   }
+
+  static contextType = DisplayContext;
+  
   static defaultProps = {
     onAddNote: () => {},
   }
 
-  handleAddFolder = e => {
+  newFolder(newFolderName) {
+    this.setState({newFolderName: {value: newFolderName}});
+  }
+
+  handleSubmit = e => {
     e.preventDefault();
-    this.setState({newFolderName: {value: newFolderName}})
+    const newFolderName = this.state;
+
+    fetch(`${config.API_ENDPOINT}` {
+      method: 'POST',
+      body: JSON.stringify(newFolderName),
+      headers: {
+        'content-type': 'application/json'
+      },
+    }).then(res => {
+      if (!res.ok)
+        return res.json().then(e => Promise.reject(e))
+      return res.json()
+    }).then(() => {
+      
+    })
   }
 
   render () {
