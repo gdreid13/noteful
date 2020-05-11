@@ -21,7 +21,7 @@ export default class MainSide extends React.Component {
                 to={`/folder/${folder.id}`}
               >
                 <span className='MainSide__num-notes'>
-                  {countNotesForFolder(notes, folder.id)}
+                  {countNotesForFolder(notes, folder.id)} -- 
                 </span>
                 {folder.name}
               </NavLink>
@@ -29,15 +29,16 @@ export default class MainSide extends React.Component {
           )}
         </ul>
         <div className='MainSide__button-wrapper'>
-          <button
-            tag={Link}
-            to='/add-folder'
-            type='button'
-            className='MainSide__add-folder-button'
-          >
-            <br />
-          Add folder
-        </button>
+          <Link to='/add-folder'>
+            <button
+              tag={Link}
+              type='button'
+              className='MainSide__add-folder-button'
+            >
+              <br />
+            Add folder
+            </button>
+          </Link>
         </div>
       </div>
     )

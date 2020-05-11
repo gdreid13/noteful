@@ -1,12 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-// import { format } from 'date-fns'
+import { format, parseISO } from 'date-fns'
 import DisplayContext from '../DisplayContext'
 import config from '../config'
 import './Note.css'
 
 export default class Note extends React.Component {
-  static defaultProps ={
+  static defaultProps = {
     onDeleteNote: () => {},
   }
   static contextType = DisplayContext;
@@ -37,6 +37,7 @@ export default class Note extends React.Component {
 
   render() {
     const { name, id, modified } = this.props
+    console.log('This is modified:' + modified)
     return (
       <div className='Note'>
         <h2 className='Note__title'>
@@ -57,7 +58,7 @@ export default class Note extends React.Component {
             Modified
             {' '}
             <span className='Date'>
-              {modified}
+              {format(parseISO(modified), 'Do MMM yyyy')}
             </span>
           </div>
         </div>

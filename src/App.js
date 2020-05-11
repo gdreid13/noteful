@@ -7,14 +7,13 @@ import NotesSide from './NotesSide/NotesSide';
 import DisplayContext from './DisplayContext';
 import config from './config';
 import './App.css';
+import AddFolder from './AddFolder/AddFolder';
+import AddNote from './AddNote/AddNote';
 
 export default class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      notes: [],
-      folders: [],
-    }
+  state = {
+    notes: [],
+    folders: [],
   }
   
 
@@ -38,6 +37,18 @@ export default class App extends Component {
         });
   }
   
+  handleAddFolder = folder => {
+    this.setState({
+      folders: [...this.state.folders, folder]
+    })
+  }
+
+  handleAddNote = note => {
+    this.setState({
+      notes: [...this.state.notes, note]
+    })
+  }
+
   handleDeleteNote = noteId => {
     this.setState({
         notes: this.state.notes.filter(note => note.id !== noteId)
@@ -77,6 +88,14 @@ export default class App extends Component {
           path="/note/:noteId"
           component={NotesMain}
         />
+        <Route
+          path="/add-folder"
+          component={AddFolder}
+        />
+        <Route
+          path="/add-note"
+          component={AddNote}
+        />
       </>
     )
   }
@@ -85,7 +104,9 @@ export default class App extends Component {
     const value = {
       notes: this.state.notes,
       folders: this.state.folders,
-      deleteNote: this.handleDeleteNote
+      addFolder: this.handleAddFolder,
+      addNote: this.handleAddNote,
+      deleteNote: this.handleDeleteNote,
     }
     return (
       <DisplayContext.Provider value={value}>
