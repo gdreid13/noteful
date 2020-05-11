@@ -32,16 +32,17 @@ export default class MainMain extends React.Component {
             </li>
           )}
         </ul>
-        <div className='MainMain__button-container'>
-          <button
-            tag={Link}
-            to='/add-note'
-            type='button'
-            className='MainMain__add-note-button'
-          >
-            <br />
-          Add note
-        </button>
+        <div className='MainMain__button-wrapper'>
+          <Link to='/add-note'>
+            <button
+              tag={Link}
+              type='button'
+              className='MainMain__add-note-button'
+            >
+              <br />
+            Add note
+            </button>
+          </Link>
         </div>
       </section>
     )
