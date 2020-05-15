@@ -4,6 +4,7 @@ import { format, parseISO } from 'date-fns'
 import DisplayContext from '../DisplayContext'
 import config from '../config'
 import './Note.css'
+import PropTypes from 'prop-types';
 
 export default class Note extends React.Component {
   static defaultProps = {
@@ -65,3 +66,7 @@ export default class Note extends React.Component {
     )
   }
 }
+
+Note.propTypes = {
+  onDeleteNote: PropTypes.func
+};

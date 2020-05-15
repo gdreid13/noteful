@@ -3,6 +3,7 @@ import config from '../config'
 import DisplayContext from '../DisplayContext'
 import ValidationError from '../ValidationError/ValidationError'
 import GenericError from '../GenericError/GenericError'
+import PropTypes from 'prop-types'
 
 export default class AddFolder extends Component {
 
@@ -101,3 +102,9 @@ export default class AddFolder extends Component {
     )
   }
 }
+
+AddFolder.propTypes = {
+  history: {
+    push: PropTypes.func
+  }
+};

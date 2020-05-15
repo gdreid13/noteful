@@ -3,6 +3,7 @@ import DisplayContext from '../DisplayContext'
 import { findNote, findFolder } from '../NotesFunctions'
 import './NotesSide.css'
 import GenericError from '../GenericError/GenericError'
+import PropTypes from 'prop-types'
 
 export default class NotesSide extends React.Component {
 
@@ -47,5 +48,14 @@ export default class NotesSide extends React.Component {
 NotesSide.defaultProps = {
   history: {
     goBack: () => {}
+  },
+}
+
+NotesSide.propTypes = {
+  history: {
+    goBack: PropTypes.func
+  },
+  match: {
+    params: PropTypes.array
   }
 }

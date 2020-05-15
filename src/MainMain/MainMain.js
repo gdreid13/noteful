@@ -5,6 +5,7 @@ import DisplayContext from '../DisplayContext'
 import { getNotesForFolder } from '../NotesFunctions'
 import './MainMain.css'
 import GenericError from '../GenericError/GenericError'
+import PropTypes from 'prop-types'
 
 export default class MainMain extends React.Component {
   static defaultProps = {
@@ -54,3 +55,8 @@ export default class MainMain extends React.Component {
   }
 }
 
+MainMain.propTypes = {
+  match: {
+    params: PropTypes.array
+  }
+}

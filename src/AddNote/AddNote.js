@@ -3,6 +3,7 @@ import config from '../config'
 import DisplayContext from '../DisplayContext'
 import ValidationError from '../ValidationError/ValidationError'
 import GenericError from '../GenericError/GenericError'
+import PropTypes from 'prop-types'
 
 export default class AddNote extends Component {
 
@@ -184,3 +185,8 @@ export default class AddNote extends Component {
   }
 }
 
+AddNote.propTypes = {
+  history: {
+    push: PropTypes.func
+  }
+};

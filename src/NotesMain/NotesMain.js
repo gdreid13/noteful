@@ -4,6 +4,7 @@ import DisplayContext from '../DisplayContext'
 import { findNote } from '../NotesFunctions'
 import './NotesMain.css'
 import GenericError from '../GenericError/GenericError'
+import PropTypes from 'prop-types'
 
 export default class NotesMain extends React.Component {
 
@@ -44,5 +45,11 @@ export default class NotesMain extends React.Component {
         </GenericError>
       </section>
     )
+  }
+}
+
+NotesMain.propTypes = {
+  match: {
+    params: PropTypes.array
   }
 }
