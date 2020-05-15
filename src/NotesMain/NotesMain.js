@@ -3,6 +3,7 @@ import Note from '../Note/Note'
 import DisplayContext from '../DisplayContext'
 import { findNote } from '../NotesFunctions'
 import './NotesMain.css'
+import GenericError from '../GenericError/GenericError'
 
 export default class NotesMain extends React.Component {
 
@@ -28,17 +29,19 @@ export default class NotesMain extends React.Component {
   
     return (
       <section className='NotesMain'>
-        <Note
-          id={note.id}
-          name={note.name}
-          modified={note.modified}
-          onDeleteNote={this.handleDeleteNote}
-        />
-        <div className='NotesMain__content'>
-          {note.content.split(/\n \r|\n/).map((para, i) =>
-            <p key={i}>{para}</p>
-          )}
-        </div>
+        <GenericError>
+          <Note
+            id={note.id}
+            name={note.name}
+            modified={note.modified}
+            onDeleteNote={this.handleDeleteNote}
+          />
+          <div className='NotesMain__content'>
+            {note.content.split(/\n \r|\n/).map((para, i) =>
+              <p key={i}>{para}</p>
+            )}
+          </div>
+        </GenericError>
       </section>
     )
   }

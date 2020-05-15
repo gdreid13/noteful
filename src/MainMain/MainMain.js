@@ -4,6 +4,7 @@ import Note from '../Note/Note'
 import DisplayContext from '../DisplayContext'
 import { getNotesForFolder } from '../NotesFunctions'
 import './MainMain.css'
+import GenericError from '../GenericError/GenericError'
 
 export default class MainMain extends React.Component {
   static defaultProps = {
@@ -21,28 +22,32 @@ export default class MainMain extends React.Component {
 
     return (
       <section className='MainMain'>
-        <ul>
-          {notesForFolder.map(note =>
-            <li key={note.id}>
-              <Note
-                id={note.id}
-                name={note.name}
-                modified={note.modified}
-              />
-            </li>
-          )}
-        </ul>
+        <GenericError>
+          <ul>
+            {notesForFolder.map(note =>
+              <li key={note.id}>
+                <Note
+                  id={note.id}
+                  name={note.name}
+                  modified={note.modified}
+                />
+              </li>
+            )}
+          </ul>
+        </GenericError>
         <div className='MainMain__button-wrapper'>
-          <Link to='/add-note'>
-            <button
-              tag={Link}
-              type='button'
-              className='MainMain__add-note-button'
-            >
-              <br />
-            Add note
-            </button>
-          </Link>
+          <GenericError>
+            <Link to='/add-note'>
+              <button
+                tag={Link}
+                type='button'
+                className='MainMain__add-note-button'
+              >
+                <br />
+              Add note
+              </button>
+            </Link>
+          </GenericError>
         </div>
       </section>
     )
