@@ -1,25 +1,61 @@
 import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom';
-import MainMain from './MainMain';
-import MainSide from './MainSide';
-import NotesMain from './NotesMain';
-import NotesSide from './NotesSide';
-import dummyStore from './dummy-store';
-import {getNotesForFolder, findNote, findFolder} from './NotesFunctions';
+import MainMain from './MainMain/MainMain';
+import MainSide from './MainSide/MainSide';
+import NotesMain from './NotesMain/NotesMain';
+import NotesSide from './NotesSide/NotesSide';
+import DisplayContext from './DisplayContext';
+import config from './config';
 import './App.css';
+import AddFolder from './AddFolder/AddFolder';
+import AddNote from './AddNote/AddNote';
 
 export default class App extends Component {
   state = {
     notes: [],
     folders: [],
   }
+  
 
   componentDidMount() {
-    this.setState(dummyStore);
+    Promise.all([
+      fetch(`${config.API_ENDPOINT}/notes`),
+      fetch(`${config.API_ENDPOINT}/folders`)
+    ]).then(([notesRes, foldersRes]) => {
+      if (!notesRes.ok)
+          return notesRes.json().then(e => Promise.reject(e));
+      if (!foldersRes.ok)
+          return foldersRes.json().then(e => 
+            Promise.reject(e));
+          return Promise.all([notesRes.json(), foldersRes.json()]);
+        })
+        .then(([notes, folders]) => {
+            this.setState({notes, folders});
+        })
+        .catch(error => {
+            console.error({error});
+        });
   }
   
+  handleAddFolder = folder => {
+    this.setState({
+      folders: [...this.state.folders, folder]
+    })
+  }
+
+  handleAddNote = note => {
+    this.setState({
+      notes: [...this.state.notes, note]
+    })
+  }
+
+  handleDeleteNote = noteId => {
+    this.setState({
+        notes: this.state.notes.filter(note => note.id !== noteId)
+    });
+  };
+
   renderNavRoutes() {
-    const { notes, folders } = this.state;
     return (
       <>
         {['/', '/folder/:folderId'].map(path => (
@@ -27,32 +63,17 @@ export default class App extends Component {
             exact
             key={path}
             path={path}
-            render={routeProps => (
-              <MainSide
-                folders={folders}
-                notes={notes}
-                {...routeProps}
-              />
-            )}
+            component={MainSide}
           />
         ))}
-        <Route
-          path="/note/:noteId"
-          render={routeProps => {
-            const { noteId } = routeProps.match.params;
-            const note = findNote(notes, noteId) || {};
-            const folder = findFolder(folders, note.folderId);
-            return <NotesSide {...routeProps} folder={folder} />;
-          }}
-        />
+        <Route path="/note/:noteId" component={NotesSide}/>
         <Route path="/add-folder" component={NotesSide} />
         <Route path="/add-note" component={NotesSide} />
       </>
-    );
+    )
   }
 
   renderMainRoutes() {
-    const { notes, folders } = this.state;
     return (
       <>
         {['/', '/folder/:folderId'].map(path => (
@@ -60,44 +81,46 @@ export default class App extends Component {
             exact
             key={path}
             path={path}
-            render={routeProps => {
-              const { folderId } = routeProps.match.params;
-              const notesForFolder = getNotesForFolder(
-                notes,
-                folderId
-              );
-              return (
-                <MainMain
-                  {...routeProps}
-                  notes={notesForFolder}
-                />
-              );
-            }}
+            component={MainMain}
           />
         ))}
         <Route
           path="/note/:noteId"
-          render={routeProps => {
-            const { noteId } = routeProps.match.params;
-            const note = findNote(notes, noteId);
-            return <NotesMain {...routeProps} note={note} />;
-          }}
+          component={NotesMain}
+        />
+        <Route
+          path="/add-folder"
+          component={AddFolder}
+        />
+        <Route
+          path="/add-note"
+          component={AddNote}
         />
       </>
-    );
+    )
   }
 
   render() {
+    const value = {
+      notes: this.state.notes,
+      folders: this.state.folders,
+      addFolder: this.handleAddFolder,
+      addNote: this.handleAddNote,
+      deleteNote: this.handleDeleteNote,
+    }
     return (
-      <div className="App">
-        <nav className="App__nav">{this.renderNavRoutes()}</nav>
-        <header className="App__header">
-          <h1>
-            <Link to="/">Noteful</Link>{' '}
-          </h1>
-        </header>
-        <main className="App__main">{this.renderMainRoutes()}</main>
-      </div>
-    );
+      <DisplayContext.Provider value={value}>
+        <div className="App">
+          <nav className="App__nav">{this.renderNavRoutes()}</nav>
+          <header className="App__header">
+            <h1>
+              <Link to="/">Noteful</Link>{' '}
+            </h1>
+          </header>
+          <main className="App__main">{this.renderMainRoutes()}</main>
+        </div>
+      </DisplayContext.Provider>
+
+    )
   }
 }
