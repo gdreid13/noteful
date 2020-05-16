@@ -38,6 +38,8 @@ export default class Note extends React.Component {
 
   render() {
     const { name, id, modified } = this.props
+    console.log('This is modified:', modified);
+    console.log('This is parseISO modified:', parseISO(modified));
     return (
       <div className='Note'>
         <h2 className='Note__title'>
@@ -58,7 +60,7 @@ export default class Note extends React.Component {
             Modified
             {' '}
             <span className='Date'>
-              {format(parseISO(modified), 'Do MMM yyyy')}
+              {format(parseISO(modified), 'd MMM yyyy')}
             </span>
           </div>
         </div>
