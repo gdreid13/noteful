@@ -104,7 +104,5 @@ export default class AddFolder extends Component {
 }
 
 AddFolder.propTypes = {
-  history: {
-    push: PropTypes.func
-  }
+  history: PropTypes.object
 };

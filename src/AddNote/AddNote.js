@@ -69,7 +69,7 @@ export default class AddNote extends Component {
       return "Name is required";
     }
     for (let i=0; i < this.context.notes.length; i++) {
-      if (name === this.context.notes.name && folder === this.context.notes.folderId) {
+      if (name === this.context.notes[i].name && folder === this.context.notes[i].folderId) {
         return "Note cannot have the same name as another note in the same folder";
       }
     }
@@ -178,7 +178,7 @@ export default class AddNote extends Component {
             disabled = {
               this.validateNoteName() ||
               this.validateNoteContent() ||
-              this.validateNoteFolderId
+              this.validateNoteFolderId()
             }>
             Submit
           </button>
@@ -189,7 +189,5 @@ export default class AddNote extends Component {
 }
 
 AddNote.propTypes = {
-  history: {
-    push: PropTypes.func
-  }
+  history: PropTypes.object
 };
