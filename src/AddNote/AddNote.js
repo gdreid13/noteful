@@ -31,6 +31,7 @@ export default class AddNote extends Component {
   updateNewNoteName(name) {
     this.setState({
       newNote: {
+        ...this.state.newNote,
         name: name,
         modified: new Date(),
         touched: true,
@@ -41,6 +42,7 @@ export default class AddNote extends Component {
   updateNewNoteContent(content) {
     this.setState({
       newNote: {
+        ...this.state.newNote,
         content: content,
         modified: new Date(),
         touched: true,
@@ -51,6 +53,7 @@ export default class AddNote extends Component {
   updateNewNoteFolderId(folderId) {
     this.setState({
       newNote: {
+        ...this.state.newNote,
         folderId: folderId,
         modified: new Date(),
         touched: true,
@@ -74,7 +77,6 @@ export default class AddNote extends Component {
 
   validateNoteContent() {
     const content = this.state.newNote.content;
-
     if (content.length === 0) {
       return "Your note has no content";
     }
@@ -100,6 +102,7 @@ export default class AddNote extends Component {
         'content-type': 'application/json'
       },
     }).then( res => {
+      console.log('The json res is:', res)
       if (!res.ok)
         return res.json().then(e => Promise.reject(e))
       return res.json()
@@ -117,10 +120,10 @@ export default class AddNote extends Component {
     const contentError = this.validateNoteContent();
     const folderIdError = this.validateNoteFolderId();
 
-    console.log(this.state);
+    console.log('The state at the start of the render is:', this.state);
 
     return (
-      <form className="add_note" onSubmit={() => this.handleSubmit}>
+      <form className="add_note" onSubmit={this.handleSubmit}>
         <h2>Add note</h2>
         <div className="form_field">
           <GenericError>

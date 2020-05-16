@@ -52,10 +52,6 @@ NotesSide.defaultProps = {
 }
 
 NotesSide.propTypes = {
-  history: {
-    goBack: PropTypes.func
-  },
-  match: {
-    params: PropTypes.array
-  }
+  history: PropTypes.object,
+  match: PropTypes.object,
 }

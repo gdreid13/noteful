@@ -56,7 +56,5 @@ export default class MainMain extends React.Component {
 }
 
 MainMain.propTypes = {
-  match: {
-    params: PropTypes.array
-  }
+  match: PropTypes.object
 }
