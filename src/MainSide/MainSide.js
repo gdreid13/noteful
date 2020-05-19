@@ -1,7 +1,7 @@
 import React from 'react'
 import { NavLink, Link } from 'react-router-dom'
 import { countNotesForFolder } from '../NotesFunctions'
-import DisplayContext from '../DisplayContext'
+import DisplayContext from '../displayContext'
 import './MainSide.css'
 import GenericError from '../GenericError/GenericError'
 

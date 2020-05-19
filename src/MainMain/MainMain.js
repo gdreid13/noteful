@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import Note from '../Note/Note'
-import DisplayContext from '../DisplayContext'
+import DisplayContext from '../displayContext'
 import { getNotesForFolder } from '../NotesFunctions'
 import './MainMain.css'
 import GenericError from '../GenericError/GenericError'

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { format, parseISO } from 'date-fns'
-import DisplayContext from '../DisplayContext'
+import DisplayContext from '../displayContext'
 import config from '../config'
 import './Note.css'
 import PropTypes from 'prop-types';
@@ -38,8 +38,8 @@ export default class Note extends React.Component {
 
   render() {
     const { name, id, modified } = this.props
-    console.log('This is modified:', modified);
-    console.log('This is parseISO modified:', parseISO(modified));
+//    console.log('This is modified:', name, modified);
+//    console.log('This is parseISO modified:', name, parseISO(modified));
     return (
       <div className='Note'>
         <h2 className='Note__title'>
@@ -59,9 +59,12 @@ export default class Note extends React.Component {
           <div className='Note__dates-modified'>
             Modified
             {' '}
-            <span className='Date'>
+            { modified &&
+            <span className='Date'> 
               {format(parseISO(modified), 'd MMM yyyy')}
+            
             </span>
+            }
           </div>
         </div>
       </div>

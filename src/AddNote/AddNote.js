@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import config from '../config'
-import DisplayContext from '../DisplayContext'
+import DisplayContext from '../displayContext'
 import ValidationError from '../ValidationError/ValidationError'
 import GenericError from '../GenericError/GenericError'
 import PropTypes from 'prop-types'

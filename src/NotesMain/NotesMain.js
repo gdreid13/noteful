@@ -1,6 +1,6 @@
 import React from 'react'
 import Note from '../Note/Note'
-import DisplayContext from '../DisplayContext'
+import DisplayContext from '../displayContext'
 import { findNote } from '../NotesFunctions'
 import './NotesMain.css'
 import GenericError from '../GenericError/GenericError'

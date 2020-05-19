@@ -4,7 +4,7 @@ import MainMain from './MainMain/MainMain';
 import MainSide from './MainSide/MainSide';
 import NotesMain from './NotesMain/NotesMain';
 import NotesSide from './NotesSide/NotesSide';
-import DisplayContext from './DisplayContext';
+import DisplayContext from './displayContext';
 import config from './config';
 import './App.css';
 import AddFolder from './AddFolder/AddFolder';

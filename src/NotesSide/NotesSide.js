@@ -1,5 +1,5 @@
 import React from 'react'
-import DisplayContext from '../DisplayContext'
+import DisplayContext from '../displayContext'
 import { findNote, findFolder } from '../NotesFunctions'
 import './NotesSide.css'
 import GenericError from '../GenericError/GenericError'
