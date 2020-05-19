@@ -38,8 +38,6 @@ export default class Note extends React.Component {
 
   render() {
     const { name, id, modified } = this.props
-//    console.log('This is modified:', name, modified);
-//    console.log('This is parseISO modified:', name, parseISO(modified));
     return (
       <div className='Note'>
         <h2 className='Note__title'>
