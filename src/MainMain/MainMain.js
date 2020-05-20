@@ -5,7 +5,7 @@ import DisplayContext from '../displayContext'
 import { getNotesForFolder } from '../NotesFunctions'
 import './MainMain.css'
 import GenericError from '../GenericError/GenericError'
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'  
 
 export default class MainMain extends React.Component {
   static defaultProps = {
